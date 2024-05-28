@@ -38,7 +38,7 @@ def validate_board(board):
     """
     for row in board:
         for char in row:
-            if not char.islower():
+            if not char.islower() or char == None:
                 return False
     return True
 
@@ -65,7 +65,7 @@ def generate_prefixes(word_set):
     
     return prefixes
 
-def load_data(filename):
+def load_file_data(filename):
     full_path = os.path.join('data', 'output', filename)
     try:
         with open(full_path, 'r') as file:
@@ -73,3 +73,13 @@ def load_data(filename):
     except FileNotFoundError:
         raise FileNotFoundError(f"Error: JSON file '{filename}' not found at '{full_path}'")
     return data
+
+def format_user_input(data):
+    grid = [['' for _ in range(4)] for _ in range(4)]
+    
+    for raw_text, value in data.items():
+        coordinates = raw_text.replace('board[', '').replace(']', '').replace('[', ' ').split(' ')
+        x, y = int(coordinates[0]), int(coordinates[1])
+        grid[x][y] = value
+
+    return grid

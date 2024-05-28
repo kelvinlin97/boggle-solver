@@ -1,6 +1,12 @@
+# Setup
+
+1. Fork and clone this repo.
+2. Install dependencies: `pip install -r requirements.txt`
+3. `python3 app.py` 
+
 # Tech
 
-Flask/Python
+Flask/Python/Jinja
 
 # Sources
 
