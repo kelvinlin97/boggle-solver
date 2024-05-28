@@ -73,3 +73,14 @@ def load_data(filename):
     except FileNotFoundError:
         raise FileNotFoundError(f"Error: JSON file '{filename}' not found at '{full_path}'")
     return data
+
+
+def format_user_input(data):
+    grid = [['' for _ in range(4)] for _ in range(4)]
+
+    for raw_text, value in data.items():
+        coordinates = raw_text.replace('board[', '').replace(']', '').replace('[', ' ').split(' ')
+        x, y = int(coordinates[0]), int(coordinates[1])
+        grid[x][y] = value
+
+    return grid
