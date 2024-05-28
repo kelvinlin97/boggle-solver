@@ -1,4 +1,4 @@
-from utils import load_data
+from utils import load_file_data
 import time
 
 placeholder = [['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h'], ['i', 'j', 'k', 'l'], ['m', 'n', 'o', 'p']]
@@ -13,8 +13,8 @@ def solve(board):
                         # if valid, add word to seen
         # reduce calls by storing prefixes for frequently used words
     
-    prefixes = load_data('prefixes.json')
-    valid_words = load_data('valid_words.json')
+    prefixes = load_file_data('prefixes.json')
+    valid_words = load_file_data('valid_words.json')
     start_time = time.time()
     res = set()
 

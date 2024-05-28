@@ -4,9 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boggle Solver</title>
+    <style>
+        h1 {
+            text-align: center; 
+            font-size: 40px; 
+            margin-bottom: 20px; 
+        }
+
+        body {
+            font-family: "CoolFont", sans-serif;
+        }
+
+        p {
+            text-align: center; 
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 600px; 
+            margin: 0 auto;
+        }
+
+        td {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ddd; 
+            text-align: center;
+            vertical-align: middle;
+            font-size: 24px;
+            background-color: #f2f9fd; 
+        }
+
+        input[type="text"] {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            text-align: center;
+            font-size: 24px; 
+            background-color: transparent; 
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none;
+            font-size: 16px; 
+            cursor: pointer; 
+            display: block;
+            text-align: center; 
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Boggle Solver</h1>
-    <p>Submit puzzle</p>
+    <p>Fill in the 4x4 grid with letters:</p>
+    
+    <form id="boggleForm" method="POST" action="/solve">
+        <table>
+            {% for row in range(4) %}
+                <tr>
+                    {% for col in range(4) %}
+                        <td><input type="text" name="board[{{ row }}][{{ col }}]" maxlength="1" style="text-transform: lowercase;"></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        
+        <button type="submit">Solve</button>
+    </form>
+
+    {% if error_message %}
+    <p class="error">{{ error_message }}</p>
+    {% endif %}
+    
 </body>
 </html>
