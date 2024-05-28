@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, request, render_template
 from solve_board import solve
 from utils import validate_board, format_user_input
 
@@ -10,14 +10,16 @@ def index():
 
 @app.route('/solve', methods=['POST'])
 def solve_board():
-    data = request.form
-    board = format_user_input(data)
-    
-    if not board or not validate_board(board):
-        return jsonify({"error": "Invalid board: Board must be provided and contain only lowercase letters"}), 400
-    
-    word_list = solve(board)
-    return jsonify({"words": word_list, "word_count": len(word_list)})
+    try:
+        data = request.form
+        board = format_user_input(data)
+        if not validate_board(board):
+            return render_template('index.html', error_message="Invalid board format")
+        word_list = solve(board)
+        return render_template('index.html', response=word_list)
+    except Exception as e:
+        error_message = str(e)
+        return render_template('index.html', error_message=error_message)
 
 if __name__ == '__main__':
     app.run(debug=True)
